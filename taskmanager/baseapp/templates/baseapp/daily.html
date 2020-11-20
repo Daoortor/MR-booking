@@ -1,0 +1,104 @@
+{% extends 'baseapp/layout.html' %}
+
+{% block head %}
+    <style>
+        th {align: center;}
+        #centerLayer {
+            position: absolute;
+            width: 950px;
+            height: 620px;
+            left: 50%;
+            top: 50%;
+            margin-left: -460px;
+            margin-top: -270px;
+            background: #FFF;
+            border: none;
+            padding: 10px;
+            overflow: auto;
+        }
+    </style>
+{% endblock %}
+
+{% block title %}
+    {{ day }}.{{ month }}.{{ year }}
+{% endblock %}
+
+{% block body %}
+    {% if go_back %}
+        <form method="get" action="{{ yesterday }}">
+            {% csrf_token %}
+            <button class="btn btn-info" style="margin-left: 260px; margin-top: 50px; width: 160px; font-size: 80%;">
+                &#8592; Предыдущий день
+            </button>
+        </form>
+        <form method="get" action="{{ tomorrow }}">
+            {% csrf_token %}
+            <button class="btn btn-info" style="margin-left: 1000px; margin-top: -50px; width: 160px; font-size: 80%;">
+                Следующий день &#8594;
+            </button>
+        </form>
+    {% else %}
+        <form method="get" action="{{ tomorrow }}">
+            {% csrf_token %}
+            <button class="btn btn-info" style="margin-left: 1000px; margin-top: 50px; width: 160px; font-size: 80%;">
+                Следующий день &#8594;
+            </button>
+        </form>
+    {% endif %}
+    <div id="centerLayer">
+        <h1 align="center">Бронирование на {{ day }}.{{ month }}.{{year}}</h1>
+        {% if invalid %}
+            <h6 align="center">Вы не можете бронировать на прошедший день.</h6>
+        {% else %}
+            <h6 align="center" style="color: {{ message.1 }}">{{ message.0 }}</h6>
+            <table height="370px" width="900px" align="center" border="1px solid black" style="table-layout: fixed;">
+                <tr>
+                    <th ></th>
+                    <th>16:40-17:20</th>
+                    <th>17:30-18:10</th>
+                    <th>18:20-19:00</th>
+                    <th>19:20-20:00</th>
+                    <th>20:10-20:50</th>
+                </tr>
+                {% for i in slots %}
+                    <tr>
+                        <th>MR{{ i.0.room.room_number }}</th>
+                        {% for j in i %}
+                            {% if j.status == 'available' %}
+                                <th bgcolor="#FFFFFF">СВОБОДНО</th>
+                            {% elif j.status == 'reserved' and j.user == user.username %}
+                                <th bgcolor="#008080">ЗАБРОНИРОВАНО</th>
+                            {% elif j.status == 'reserved' and j.user != user.username %}
+                                <th bgcolor="#FF5555">ЗАНЯТО</th>
+                            {% elif j.status == 'lesson' %}
+                                <th bgcolor="#e8a200">УРОК</th>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+            <div class="field-wrapper" style="margin-left: 635px; margin-top: 20px; align: left; width: 280px; height: 60px;">
+                <form method="post">
+                    {% csrf_token %}
+                    <div style="float: left; width: 50%;">
+                        <div>
+                            {{ form.slot }}
+                        </div>
+                        <div style="margin-left: 50px; margin-top:10px;">
+                            {{ form.room }}
+                        </div>
+                    </div>
+                    <div style="float: left;">
+                        <button name="submit" class="btn btn-info"  style="align: left; height: 40px;">Забронировать</button>
+                    </div>
+                </form>
+            </div>
+            <form method="get" action="{% url 'cancel' year=year month=month day=day %}">
+                {% csrf_token %}
+                <button class="btn btn-danger" style="margin-top: 10px; margin-left: 60px; width: 80px; height: 30px; font-size: 80%;">
+                    Отмена
+                </button>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

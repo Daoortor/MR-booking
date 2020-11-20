@@ -1,0 +1,7 @@
+Django==3.0
+django-email-verification==0.0.7
+django-simple-email-confirmation==0.70
+pip==10.0.1
+setuptools==39.1.0
+sqlparse==0.3.1
+

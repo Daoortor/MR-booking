@@ -1,0 +1,38 @@
+body {
+    background: #ffffff;
+}
+
+aside {
+    float: left;
+    background: #161b38;
+    width:75px;
+    height: 100vh;
+    border-right:5px solid #e8a200;
+}
+
+aside img {
+    position: absolute;
+    margin-left: 18px;
+    width: 35px;
+    top: 77vh;
+}
+
+aside ul {
+    list-style: none;
+}
+
+aside ul a li i {
+    position: relative;
+    color: #ffffff;
+    top: 2vh;
+    padding-top: 15vh;
+    margin-left: -22px;
+}
+
+aside ul a:hover, aside ul a li i:hover {
+    color: #e8a200;
+}
+
+form button {
+    background-color: #35f273;
+}

@@ -1,0 +1,26 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Подтверждение электронной почты</title>
+</head>
+<body>
+    <div style="margin-left: 120px; margin-top: 200px;">
+        <p align="center" style="font-family: Helvetica; font-size: 27px;">Подтверждение электронной почты</p>
+        <p align="center" style="font-family: Helvetica;">На вашу почту отправлен код подтверждения.</p>
+        <p align="center" style="font-family: Helvetica;">Введите его в поле ниже:</p>
+        <div style="margin-left: 530px; height: 30px;">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.code }}
+                <button class="btn btn-info" style="margin-left: 310px; height:27px;position: absolute;left: 34%;width: 180px;font-family: Helvetica;font-size:80%; border-radius: 5px;border: 1px solid #5bc0de;background: #5bc0de; ">
+                    <p style="margin-top: 3px;height:23px; color: #FFF;">Отправить</p>
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

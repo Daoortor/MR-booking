@@ -1,0 +1,28 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'baseapp/css/main.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+    <aside>
+        <ul>
+            <a href="{% url 'home' %}"><li><i class="fas fa-home fa-2x"></i></li></a>
+            <a href='{% url "daily" year=year month=month day=day %}'><li><i class="fas fa-music fa-2x"></i></li></a>
+            <a href="{% url 'contacts' %}"><li><i class="fas fa-comments fa-2x"></i></li></a>
+        </ul>
+        <a href="https://letovo.ru"><img src="{% static 'baseapp/img/letovo-logo.svg' %}"></a>
+    </aside>
+    <main>
+        {% block body %}
+        {% endblock %}
+    </main>
+</body>

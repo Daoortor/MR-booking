@@ -1,0 +1,21 @@
+#centerLayer {
+    position: absolute;
+    width: 560px;
+    height: 360px;
+    left: 50%;
+    top: 50%;
+    margin-left: -280px;
+    margin-top: -200px;
+    background: #FFF;
+    border: solid 1px black;
+    padding: 10px;
+    overflow: auto;
+}
+
+button:hover {
+    background-color: #7ED5FF;
+}
+
+div.form.input {
+
+}

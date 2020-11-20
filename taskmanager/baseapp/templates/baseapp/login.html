@@ -1,0 +1,46 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Авторизация</title>
+    <style>
+        #centerLayer {
+            position: absolute;
+            width: 560px;
+            height: 360px;
+            left: 50%;
+            top: 50%;
+            margin-left: -280px;
+            margin-top: -200px;
+            background: #FFF;
+            border: solid 1px black;
+            padding: 10px;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    {% if error.0 %}
+        <div  id="popup" style="background-color: #FF5555; height: 20px; margin-top: 100px; margin-left: 480px; width: 560px; border: 10px solid #FF5555; border-radius: 5px;">
+            <div style="height: 30px;">
+                <h3 align="center" style="font-family: helvetica; color: #FFFFFF; margin-top: 0px;">{{ error.1 }}</h3>
+            </div>
+        </div>
+    {% endif %}
+    <div id="centerLayer">
+        <div style="margin-top: -20px;"><p><a href="reg">Регистрация</a></p></div>
+        <p style="font-size: 23px;margin-top: 95px;height: 3px;text-align: center;font-family: Helvetica;">Авторизация</p>
+        <form method="POST" style="align: center;">
+            {% csrf_token %}
+            {{ form.username }}
+            <br>
+            {{ form.password }}
+            <button class="btn btn-info" style="margin-top: 39px;height:27px;position: absolute;left: 34%;width: 180px;font-family: Helvetica;font-size:80%; border-radius: 5px;border: 1px solid #5bc0de;background: #5bc0de;">
+                <p style="margin-top: 3px;height:23px; color: #FFF;">Вход</p>
+            </button>
+        </form>
+    </div>
+</body>

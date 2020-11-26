@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.template import loader
 from django.utils.dateparse import parse_date
 from django.http.response import HttpResponseRedirect
 from django.contrib.auth.models import User
@@ -44,18 +45,24 @@ def root(request):
     return HttpResponseRedirect('/login')
 
 
-def register(request):
+def register(request, error=''):
     year = datetime.date.today().year
     month = datetime.date.today().month
     day = datetime.date.today().day
-    error = (False, '')
+    if error == '':
+        error = (False, '')
+    else:
+        error = (True, error)
     if request.method == 'POST':
         form = RegForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
-            if not check_email(email):
+            confirm_password = form.cleaned_data['confirm_password']
+            if password != confirm_password:
+                error = (True, 'Пароли не совпадают')
+            elif not check_email(email):
                 error = (True, 'Введите корректную почту student.letovo.ru')
             elif User.objects.filter(username=username):
                 error = (True, 'Это имя пользователя уже занято')
@@ -173,28 +180,34 @@ def cancel(request, year, month, day):
 
 
 def confirm_email(request, username, email, password):
-    error = (False, '')
-    key = None
-    if request.method == 'POST':
-        form = CodeForm(request.POST)
-        if form.is_valid():
-            answer = form.cleaned_data['code']
-            code_model = Code.objects.all()[0]
-            if answer == code_model.code:
-                User.objects.create_user(username=username, email=email, password=password)
-                return HttpResponseRedirect('/login')
-            else:
-                print('False code', key)
-                error = (True, 'Неверный код')
-    else:
-        form = CodeForm()
-        key = random.randrange(1, 999999)
-        code_model = Code.objects.all()[0]
+    form = CodeForm()
+    key = random.randrange(1, 999999)
+    code_models = Code.objects.filter(username=username)
+    if code_models:
+        code_model = code_models[0]
         code_model.code = key
-        code_model.save()
-        send_mail(subject='Подтверждение электронной почты', message='Ваш код регистрации - ' + str(key) + '.',
-                  from_email=settings.EMAIL_FROM, recipient_list=[email])
-    return render(request, 'baseapp/confirm.html', {'error': error, 'key': key, 'form': form})
+    else:
+        code_model = Code(username=username, code=key)
+    code_model.save()
+    html_message = loader.render_to_string('baseapp/confirmation_email.html',
+                                           {
+                                               'code': key,
+                                               'username': username,
+                                               'email': email,
+                                               'password': password,
+                                           })
+    send_mail(subject='Подтверждение электронной почты', message='',
+              from_email=settings.EMAIL_FROM, recipient_list=[email], html_message=html_message)
+    return render(request, 'baseapp/confirm.html', {'key': key, 'form': form})
+
+
+def confirmation_link(request, code, username, email, password):
+    code_model = Code.objects.filter(username=username)[0]
+    if code == code_model.code:
+        User.objects.create_user(username=username, email=email, password=password)
+        return HttpResponseRedirect('/login')
+    else:
+        return HttpResponseRedirect('/reg')
 
 
 def feedback(request):

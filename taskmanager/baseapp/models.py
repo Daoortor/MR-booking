@@ -37,3 +37,4 @@ class Slot(models.Model):
 
 class Code(models.Model):
     code = models.IntegerField(default=0)
+    username = models.CharField(max_length=32, default='')

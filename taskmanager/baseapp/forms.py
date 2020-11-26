@@ -9,20 +9,23 @@ class SlotForm(forms.Form):
 
 class AuthForm(forms.Form):
     username = forms.CharField(max_length=32, help_text='Логин', widget=forms.TextInput(attrs={
-        'style': 'width: 250px; margin-left: 152px; margin-top: 13px; height: 23px;', 'placeholder': 'Логин'}))
+        'style': 'width: 240px; margin-left: 152px; margin-top: -5px; height: 23px;', 'placeholder': 'Логин'}))
     password = forms.CharField(max_length=32, help_text='Пароль', widget=forms.TextInput(attrs={
-        'type': 'password', 'style': 'width: 250px; margin-left: 152px; margin-top: 5px; height: 23px;',
+        'type': 'password', 'style': 'width: 240px; margin-left: 152px; margin-top: 5px; height: 23px;',
         'placeholder': 'Пароль'}))
 
 
 class RegForm(forms.Form):
     username = forms.CharField(max_length=32, help_text='Логин', widget=forms.TextInput(attrs={
-        'style': 'width: 250px; margin-left: 152px; margin-top: 13px; height: 23px;', 'placeholder': 'Логин'}))
+        'style': 'width: 250px; margin-left: 152px; margin-top: -5px; height: 23px;', 'placeholder': 'Логин'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={
+        'style': 'width: 250px; margin-left: 152px; margin-top: 5px; height: 23px;', 'placeholder': 'Email'}))
     password = forms.CharField(max_length=32, help_text='Пароль', widget=forms.TextInput(attrs={
         'type': 'password', 'style': 'width: 250px; margin-left: 152px; margin-top: 5px; height: 23px;',
         'placeholder': 'Пароль'}))
-    email = forms.EmailField(widget=forms.EmailInput(attrs={
-        'style': 'width: 250px; margin-left: 152px; margin-top: 5px; height: 23px;', 'placeholder': 'Email'}))
+    confirm_password = forms.CharField(max_length=32, help_text='Пароль', widget=forms.TextInput(attrs={
+        'type': 'password', 'style': 'width: 250px; margin-left: 152px; margin-top: 5px; height: 23px;',
+        'placeholder': 'Повторите пароль'}))
 
 
 class CodeForm(forms.Form):

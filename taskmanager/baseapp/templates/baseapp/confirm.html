@@ -8,19 +8,13 @@
     <title>Подтверждение электронной почты</title>
 </head>
 <body>
-    <div style="margin-left: 120px; margin-top: 200px;">
+    <div style="margin-left: 120px; margin-top: 200px; border: 1px solid black; width: 560px; height: 200px; margin-left: 480px;">
         <p align="center" style="font-family: Helvetica; font-size: 27px;">Подтверждение электронной почты</p>
-        <p align="center" style="font-family: Helvetica;">На вашу почту отправлен код подтверждения.</p>
-        <p align="center" style="font-family: Helvetica;">Введите его в поле ниже:</p>
-        <div style="margin-left: 530px; height: 30px;">
-            <form method="POST">
-                {% csrf_token %}
-                {{ form.code }}
-                <button class="btn btn-info" style="margin-left: 310px; height:27px;position: absolute;left: 34%;width: 180px;font-family: Helvetica;font-size:80%; border-radius: 5px;border: 1px solid #5bc0de;background: #5bc0de; ">
-                    <p style="margin-top: 3px;height:23px; color: #FFF;">Отправить</p>
-                </button>
-            </form>
-        </div>
+        <p align="center" style="font-family: Helvetica; margin-top: 50px;">
+            На почту, указанную в регистрации, отправлено письмо.
+            <br>
+            Перейдите по ссылке в нём для завершения регистрации.
+        </p>
     </div>
 </body>
 </html>

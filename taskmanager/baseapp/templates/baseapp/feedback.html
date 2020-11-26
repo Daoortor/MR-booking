@@ -5,6 +5,32 @@
     Обратная связь
 {% endblock %}
 
-{% block body %}
+{% block head %}
+<style>
+#centerLayer {
+position: absolute; /* Абсолютное позиционирование */
+width: 560px; /* Ширина слоя в пикселах */
+height: 360px; /* Высота слоя в пикселах */
+left: 50%; /* Положение слоя от левого края */
+top: 50%; /* Положение слоя от верхнего края */
+margin-left: -280px; /* Отступ слева */
+margin-top: -200px; /* Отступ сверху */
+background: #fff; /* Цвет фона */
+border: solid 1px black; /* Параметры рамки вокруг */
+padding: 10px; /* Поля вокруг текста */
+overflow: auto; /* Добавление полосы прокрутки */
+}
+</style>
+{% endblock %}
 
+{% block body %}
+<div id="centerLayer">
+<p style="font-size: 30px;margin-top: 20px;height: 0px;text-align: center;font-family: Helvetica;">Обратная связь</p>
+<p style="font-size: 20px;margin-top: 50px;height: 3px;text-align: center;font-family: Helvetica;">Заполните, пожалуйста следующую гугл форму для обраной связи</p>
+<button style="font-size: 20px;top: 90px;height: 14px;text-align: right;font-family: Helvetica;" href="https://docs.google.com/forms/d/1fINXe4llfomK7T9T3Xbj3sa6O5t-fcUpq-moMQdIG7Q/edit">Гугл форма для вопросов и предложений</button>
+<form action="Бронирование M.html">
+<button style="margin-top: 90px;height:27px;position: absolute;left: 34%;width: 180px;font-family: Helvetica;font-size:80%; border-radius: 5px;border: 1px solid #FFF;background: #FFF; "><p style="margin-top: 3px;height:23px; color: #000;">Переход по ссылке</p>
+</button>
+</form>
+</div>
 {% endblock %}

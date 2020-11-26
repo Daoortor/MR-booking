@@ -1,0 +1,11 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Подтверждение электронной почты</title>
+</head>
+<body>
+    <h2>Подтверждение электронной почты</h2>
+    Для завершения регистрации перейдите по ссылке: 127.0.0.1:8000{% url 'confirmed' username email password code %}
+</body>
+</html>
